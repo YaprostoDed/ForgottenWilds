@@ -31,6 +31,9 @@ jobs:
           cat overlay-v0.2/part*.b64 | base64 --decode > /tmp/forgottenwilds-v0.2.tar.xz
           echo "67cbd7f20aa5bf488d5860af9b6924ed52163f0a2ca918ac7b3e80201c26563f  /tmp/forgottenwilds-v0.2.tar.xz" | sha256sum --check
           tar -xJf /tmp/forgottenwilds-v0.2.tar.xz
+          cat overlay-art-base/part*.b64 | base64 --decode > /tmp/forgottenwilds-art-base.tar.xz
+          echo "f017e538b193da5ea8c6da148b411e127f912452ebdd3b97be94ae08fc53d193  /tmp/forgottenwilds-art-base.tar.xz" | sha256sum --check
+          tar -xJf /tmp/forgottenwilds-art-base.tar.xz
           sed -i 's/version=0.1.0/version=0.2.0/' gradle.properties
       - name: Adapt player notifications to Minecraft 26.3
         run: |
