@@ -54,6 +54,7 @@ jobs:
           python3 tools/generate_assets.py
           python3 tools/vanilla_art_pass.py
           python3 tools/content_upgrade_v2.py
+          sed -i 's/SoundEvents.STONECUTTER_TAKE_RESULT/SoundEvents.STONE_BREAK/g' src/main/java/com/forgottenwilds/item/StoneChiselItem.java
           python3 tools/art_direction_v2.py
           python3 - <<'PY'
           import json
