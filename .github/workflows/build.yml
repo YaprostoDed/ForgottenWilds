@@ -26,6 +26,19 @@ jobs:
           cat source-bundle/part*.b64 | base64 --decode > /tmp/forgottenwilds-sources.tar.xz
           echo "3dbed042ec5b63c6b6d348c28bef140908447b305fd8dcf17fbdbd673ca7226f  /tmp/forgottenwilds-sources.tar.xz" | sha256sum --check
           tar -xJf /tmp/forgottenwilds-sources.tar.xz
+      - name: Adapt player notifications to Minecraft 26.3
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          root=Path('src/main/java')
+          for path in root.rglob('*.java'):
+              original=path.read_text()
+              updated=re.sub(r'player\.displayClientMessage\((.*?),\s*true\);', r'player.sendSystemMessage(\1);', original)
+              if original!=updated:
+                  path.write_text(updated)
+                  print('Updated messaging API in', path)
+          PY
       - name: Generate original pixel textures and models
         run: |
           python3 -m pip install --user Pillow
